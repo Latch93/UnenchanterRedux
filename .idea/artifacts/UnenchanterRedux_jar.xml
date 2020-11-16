@@ -1,0 +1,8 @@
+<component name="ArtifactManager">
+  <artifact type="jar" build-on-make="true" name="UnenchanterRedux:jar">
+    <output-path>U:/Users/Latch/Documents/enderDragon/plugins</output-path>
+    <root id="archive" name="UnenchanterRedux.jar">
+      <element id="module-output" name="UnenchanterRedux" />
+    </root>
+  </artifact>
+</component>
