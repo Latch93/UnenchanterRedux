@@ -20,7 +20,7 @@ public class UnenchanterRedux extends JavaPlugin {
     private UnenchantConfigManager UnenchantCfgm;
     private static Economy econ = null;
     private static final Logger log = Logger.getLogger("Minecraft");
-    
+
     @Override
     public void onEnable() {
         createEnchantmentConfigModel();
