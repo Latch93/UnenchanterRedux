@@ -78,6 +78,10 @@ public class UnenchantController implements CommandExecutor {
                                     doesHaveEnoughMoney(pa, configMoneyCost);
                                     doesHaveEnoughLevels(pa, configExpCost);
                                     if (Boolean.TRUE.equals(isUnenchantAllowed)){
+                                        if (!Boolean.TRUE.equals(configDoesCostExp) && !Boolean.TRUE.equals(configDoesCostMoney)) {
+                                            removeEnchant(stack, pa, enchantment, level);
+                                            pa.sendMessage(ChatColor.GREEN + "Successfully removed " + ChatColor.GOLD + enc + " " + level + ChatColor.GREEN + ".");
+                                        }
                                         if (Boolean.TRUE.equals(configDoesCostExp) && Boolean.FALSE.equals(configDoesCostMoney)) {
                                             if (Boolean.TRUE.equals(doesPlayerHaveEnoughLevels)) {
                                                 requireLevelCheck(stack, pa, enchantment, level);
