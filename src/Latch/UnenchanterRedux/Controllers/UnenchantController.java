@@ -18,10 +18,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
-import java.io.File;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Map;
+import java.util.Objects;
 
 public class UnenchantController implements CommandExecutor {
 
@@ -34,6 +34,8 @@ public class UnenchantController implements CommandExecutor {
     private static boolean doesHaveBook;
     private static boolean doesContainEnchant;
     private static final DecimalFormat df = new DecimalFormat("0.00");
+    private static boolean doesPlayerHaveEnoughLevels;
+    private static boolean doesPlayerHaveEnoughMoney;
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
@@ -63,7 +65,8 @@ public class UnenchantController implements CommandExecutor {
                                     for(String enchantFromConfig : UnenchantCfg.getConfigurationSection("enchants").getKeys(false)) {
                                         String[] placeholder = enchantFromConfig.split("---");
                                         String configEnchantName = placeholder[0];
-                                        if (configEnchantName.equalsIgnoreCase(enc)){
+                                        int configEnchantLevel = Integer.parseInt(placeholder[1]);
+                                        if (configEnchantName.equalsIgnoreCase(enc) && configEnchantLevel == level){
                                             configExpCost = UnenchantCfg.getInt("enchants." + enchantFromConfig + ".levelCost");
                                             configMoneyCost = UnenchantCfg.getInt("enchants." + enchantFromConfig + ".moneyCost");
                                             configDoesCostExp = UnenchantCfg.getBoolean("enchants." + enchantFromConfig + ".doesCostLevel");
@@ -72,32 +75,39 @@ public class UnenchantController implements CommandExecutor {
                                         }
                                         configCounter++;
                                     }
+                                    doesHaveEnoughMoney(pa, configMoneyCost);
+                                    doesHaveEnoughLevels(pa, configExpCost);
                                     if (Boolean.TRUE.equals(isUnenchantAllowed)){
-                                        stack.setAmount(stack.getAmount() - 1);
-                                        ItemStack book = new ItemStack(Material.ENCHANTED_BOOK, 1);
-                                        pa.getInventory().getItemInMainHand().removeEnchantment(Enchantment.getByKey(enchantment));
-                                        EnchantmentStorageMeta meta = (EnchantmentStorageMeta) book.getItemMeta();
-                                        meta.addStoredEnchant(Enchantment.getByKey(enchantment), level, true);
-                                        book.setItemMeta(meta);
-                                        pa.getWorld().dropItem(pa.getLocation(), new ItemStack(book));
-                                        if (Boolean.TRUE.equals(configDoesCostExp)){
-                                            int playerLevel = pa.getLevel();
-                                            if (playerLevel > configExpCost){
-                                                pa.setLevel(playerLevel - configExpCost);
-                                                pa.sendMessage(ChatColor.GREEN + "Took " + ChatColor.GOLD + configExpCost + ChatColor.GREEN + "levels from you.");
+                                        if (Boolean.TRUE.equals(configDoesCostExp) && Boolean.FALSE.equals(configDoesCostMoney)) {
+                                            if (Boolean.TRUE.equals(doesPlayerHaveEnoughLevels)) {
+                                                requireLevelCheck(stack, pa, enchantment, level);
+                                                removeEnchant(stack, pa, enchantment, level);
                                             }
                                             else {
                                                 pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "You do not have enough levels to unenchant. Levels required: " + ChatColor.GOLD + configExpCost);
                                             }
                                         }
-                                        if (Boolean.TRUE.equals(configDoesCostMoney)){
-                                            Economy econ = UnenchanterRedux.getEconomy();
-                                            EconomyResponse r = econ.withdrawPlayer(pa, configMoneyCost);
-                                            Double balance = r.balance;
-                                            df.format(balance);
-                                            df.setRoundingMode(RoundingMode.UP);
-                                            pa.sendMessage(ChatColor.GREEN + "$" + Math.round(r.amount) + ChatColor.WHITE + " was taken from your balance, you now have " +
-                                                    ChatColor.GREEN + "$" + df.format(balance));
+                                        if (Boolean.TRUE.equals(configDoesCostMoney) && Boolean.FALSE.equals(configDoesCostExp)){
+                                            if (Boolean.TRUE.equals(doesPlayerHaveEnoughMoney)){
+                                                requireMoneyCheck(stack, pa, enchantment, level);
+                                                removeEnchant(stack, pa, enchantment, level);
+                                            }
+                                            else {
+                                                pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "You do not have enough money to unenchant. Cost required: " + ChatColor.GOLD + "$" + configMoneyCost);
+                                            }
+                                        }
+                                        if (Boolean.TRUE.equals(configDoesCostMoney) && Boolean.TRUE.equals(configDoesCostExp)){
+                                            if (Boolean.FALSE.equals(doesPlayerHaveEnoughMoney)){
+                                                pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "You do not have enough money to unenchant. Cost required: " + ChatColor.GOLD + "$" + configMoneyCost);
+                                            }
+                                            if (Boolean.FALSE.equals(doesPlayerHaveEnoughLevels)){
+                                                pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "You have enough levels to unenchant this item. Levels required: " + ChatColor.GOLD + configExpCost);
+                                            }
+                                            if (Boolean.TRUE.equals(doesPlayerHaveEnoughMoney) && Boolean.TRUE.equals(doesPlayerHaveEnoughLevels)) {
+                                                requireMoneyCheck(stack, pa, enchantment, level);
+                                                requireLevelCheck(stack, pa, enchantment, level);
+                                                removeEnchant(stack, pa, enchantment, level);
+                                            }
                                         }
                                     }
                                     else {
@@ -122,6 +132,44 @@ public class UnenchantController implements CommandExecutor {
             pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "Item does not have that enchantment.");
         }
         return true;
+    }
+
+    public static void removeEnchant(ItemStack stack, Player pa, NamespacedKey enchantment, int level) {
+        stack.setAmount(stack.getAmount() - 1);
+        ItemStack book = new ItemStack(Material.ENCHANTED_BOOK, 1);
+        pa.getInventory().getItemInMainHand().removeEnchantment(Objects.requireNonNull(Enchantment.getByKey(enchantment)));
+        EnchantmentStorageMeta meta = (EnchantmentStorageMeta) book.getItemMeta();
+        assert meta != null;
+        meta.addStoredEnchant(Objects.requireNonNull(Enchantment.getByKey(enchantment)), level, true);
+        book.setItemMeta(meta);
+        pa.getWorld().dropItem(pa.getLocation(), new ItemStack(book));
+    }
+
+    public void requireMoneyCheck(ItemStack stack, Player pa, NamespacedKey enchantment, int level){
+        Economy econ = UnenchanterRedux.getEconomy();
+        EconomyResponse r = econ.withdrawPlayer(pa, configMoneyCost);
+        Double balance = r.balance;
+        df.format(balance);
+        df.setRoundingMode(RoundingMode.UP);
+        pa.sendMessage(ChatColor.GOLD + "$" + Math.round(r.amount) + ChatColor.WHITE + " was taken from your balance, you now have " +
+                ChatColor.GOLD + "$" + df.format(balance) + ChatColor.GREEN + ".");
+    }
+
+    public void requireLevelCheck(ItemStack stack, Player pa, NamespacedKey enchantment, int level){
+        int playerLevel = pa.getLevel();
+        pa.setLevel(playerLevel - configExpCost);
+        pa.sendMessage(ChatColor.GREEN + "Took " + ChatColor.GOLD + configExpCost + ChatColor.GREEN + " levels from you.");
+    }
+
+    public void doesHaveEnoughLevels(Player pa, int levels){
+        int playerLevel = pa.getLevel();
+        doesPlayerHaveEnoughLevels = playerLevel >= levels;
+    }
+
+    public void doesHaveEnoughMoney(Player pa, int cost){
+        Economy econ = UnenchanterRedux.getEconomy();
+        double playerBalance = econ.getBalance(pa);
+        doesPlayerHaveEnoughMoney = playerBalance >= cost;
     }
 }
 
