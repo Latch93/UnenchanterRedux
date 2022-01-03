@@ -1,0 +1,14 @@
+name: UnenchanterRedux
+version: ${project.version}
+authors: [Latch,mfnalex]
+main: Latch.UnenchanterRedux.UnenchanterRedux
+api-version: 1.16
+softdepend: [Vault, PlaceholderAPI]
+commands:
+  unenchant:
+    description: Unenchant
+    usage: /unenchant
+    permission: ur.command.unenchant
+permissions:
+  ur.command.reload:
+    description: Reloads the configuration file

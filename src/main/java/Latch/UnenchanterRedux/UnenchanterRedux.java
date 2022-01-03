@@ -5,10 +5,14 @@ import Latch.UnenchanterRedux.Controllers.UnenchantController;
 import Latch.UnenchanterRedux.Models.UnenchantModel;
 import Latch.UnenchanterRedux.TabComplete.UnenchantTabComplete;
 import net.milkbowl.vault.economy.Economy;
+import org.bukkit.Bukkit;
+import org.bukkit.NamespacedKey;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.plugin.RegisteredServiceProvider;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -20,15 +24,52 @@ public class UnenchanterRedux extends JavaPlugin {
     private UnenchantConfigManager UnenchantCfgm;
     private static Economy econ = null;
     private static final Logger log = Logger.getLogger("Minecraft");
+    private static UnenchanterRedux instance;
+    private final File nameFile = new File(getDataFolder(),"enchantmentNames.yml");
+    private YamlConfiguration nameYml;
 
-    @Override
-    public void onEnable() {
+    public YamlConfiguration getNameYml() {
+        return nameYml;
+    }
+
+    {
+        instance = this;
+    }
+
+    public static UnenchanterRedux getInstance() {
+        return instance;
+    }
+
+    public void reload() {
+        um = new ArrayList<>();
         createEnchantmentConfigModel();
         loadUnenchantConfigManager();
         UnenchantCfgm.createUnenchantConfig(um);
+        nameYml = YamlConfiguration.loadConfiguration(nameFile);
+    }
+
+
+    @Override
+    public void onEnable() {
+        if(!nameFile.exists()) {
+            saveResource("enchantmentNames.yml",false);
+        }
+        reload();
         setupEconomy();
         Objects.requireNonNull(this.getCommand("unenchant")).setExecutor(new UnenchantController());
         Objects.requireNonNull(this.getCommand("unenchant")).setTabCompleter(new UnenchantTabComplete());
+        setupPlaceholders();
+    }
+
+    private void setupPlaceholders() {
+        if(Bukkit.getPluginManager().getPlugin("PlaceholderAPI") != null) {
+            new Placeholders().register();
+        }
+    }
+
+    public String getEnchantmentName(NamespacedKey key) {
+        String keyName = key.getNamespace()+":"+key.getKey();
+        return nameYml.getString(keyName, keyName);
     }
 
     @Override

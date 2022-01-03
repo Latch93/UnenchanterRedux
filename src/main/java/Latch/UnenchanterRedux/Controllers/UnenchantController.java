@@ -20,6 +20,7 @@ import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 
@@ -39,6 +40,20 @@ public class UnenchantController implements CommandExecutor {
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
+
+        if(args.length == 1 && args[0].equalsIgnoreCase("reload") && commandSender.hasPermission("ur.command.reload")){
+            UnenchanterRedux.getInstance().reload();
+            commandSender.sendMessage(ChatColor.GREEN + "UnenchantRedux has been reloaded.");
+            return true;
+        }
+
+        if(args.length == 1 && args[0].equalsIgnoreCase("debug") && commandSender.isOp()) {
+            Arrays.stream(Enchantment.values()).forEach(ench -> {
+                System.out.println(ench.getKey());
+            });
+            return true;
+        }
+
         Player pa = (Player) commandSender;
         NamespacedKey enchantment;
         int level;
