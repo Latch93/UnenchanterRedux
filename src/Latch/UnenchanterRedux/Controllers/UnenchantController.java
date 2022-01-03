@@ -13,11 +13,13 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandExecutor;
 import org.bukkit.command.CommandSender;
 import org.bukkit.configuration.file.FileConfiguration;
+import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.EnchantmentStorageMeta;
 
+import java.io.File;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.util.Map;
@@ -25,7 +27,6 @@ import java.util.Objects;
 
 public class UnenchantController implements CommandExecutor {
 
-    public static FileConfiguration UnenchantCfg = UnenchantConfigManager.unenchantCfg;
     private static int configExpCost;
     private static int configMoneyCost;
     private static boolean configDoesCostExp;
@@ -36,6 +37,7 @@ public class UnenchantController implements CommandExecutor {
     private static final DecimalFormat df = new DecimalFormat("0.00");
     private static boolean doesPlayerHaveEnoughLevels;
     private static boolean doesPlayerHaveEnoughMoney;
+    private UnenchanterRedux plugin = UnenchanterRedux.getPlugin(UnenchanterRedux.class);
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
@@ -43,6 +45,8 @@ public class UnenchantController implements CommandExecutor {
         NamespacedKey enchantment;
         int level;
         int count = 0;
+        File configFile = new File(plugin.getDataFolder(), "unenchanterRedux.yml");
+        FileConfiguration UnenchantCfg = YamlConfiguration.loadConfiguration(configFile);
         if (args.length == 0){
             pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "You need to select the enchantment on an item to unenchant.");
         }
@@ -54,8 +58,9 @@ public class UnenchantController implements CommandExecutor {
                             count = 1;
                             doesHaveBook = true;
                             for (Map.Entry<Enchantment, Integer> entry : pa.getInventory().getItemInMainHand().getEnchantments().entrySet()) {
-                                enchantment = entry.getKey().getKey();
-                                String enc = enchantment.getKey();
+                                String[] temp1 = entry.toString().split(":");
+                                String[] temp2 = temp1[1].split(",");
+                                String enc = temp2[0];
                                 level = entry.getValue();
                                 String selection = args[0];
                                 String[] selectionArr = selection.split(":");
@@ -79,13 +84,13 @@ public class UnenchantController implements CommandExecutor {
                                     doesHaveEnoughLevels(pa, configExpCost);
                                     if (Boolean.TRUE.equals(isUnenchantAllowed)){
                                         if (!Boolean.TRUE.equals(configDoesCostExp) && !Boolean.TRUE.equals(configDoesCostMoney)) {
-                                            removeEnchant(stack, pa, enchantment, level);
+                                            removeEnchant(stack, pa, entry.getKey(), level);
                                             pa.sendMessage(ChatColor.GREEN + "Successfully removed " + ChatColor.GOLD + enc + " " + level + ChatColor.GREEN + ".");
                                         }
                                         if (Boolean.TRUE.equals(configDoesCostExp) && Boolean.FALSE.equals(configDoesCostMoney)) {
                                             if (Boolean.TRUE.equals(doesPlayerHaveEnoughLevels)) {
-                                                requireLevelCheck(stack, pa, enchantment, level);
-                                                removeEnchant(stack, pa, enchantment, level);
+                                                requireLevelCheck(pa);
+                                                removeEnchant(stack, pa, entry.getKey(), level);
                                             }
                                             else {
                                                 pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "You do not have enough levels to unenchant. Levels required: " + ChatColor.GOLD + configExpCost);
@@ -93,8 +98,8 @@ public class UnenchantController implements CommandExecutor {
                                         }
                                         if (Boolean.TRUE.equals(configDoesCostMoney) && Boolean.FALSE.equals(configDoesCostExp)){
                                             if (Boolean.TRUE.equals(doesPlayerHaveEnoughMoney)){
-                                                requireMoneyCheck(stack, pa, enchantment, level);
-                                                removeEnchant(stack, pa, enchantment, level);
+                                                requireMoneyCheck(pa);
+                                                removeEnchant(stack, pa, entry.getKey(), level);
                                             }
                                             else {
                                                 pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "You do not have enough money to unenchant. Cost required: " + ChatColor.GOLD + "$" + configMoneyCost);
@@ -108,9 +113,9 @@ public class UnenchantController implements CommandExecutor {
                                                 pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "You have enough levels to unenchant this item. Levels required: " + ChatColor.GOLD + configExpCost);
                                             }
                                             if (Boolean.TRUE.equals(doesPlayerHaveEnoughMoney) && Boolean.TRUE.equals(doesPlayerHaveEnoughLevels)) {
-                                                requireMoneyCheck(stack, pa, enchantment, level);
-                                                requireLevelCheck(stack, pa, enchantment, level);
-                                                removeEnchant(stack, pa, enchantment, level);
+                                                requireMoneyCheck(pa);
+                                                requireLevelCheck(pa);
+                                                removeEnchant(stack, pa, entry.getKey(), level);
                                             }
                                         }
                                     }
@@ -138,18 +143,19 @@ public class UnenchantController implements CommandExecutor {
         return true;
     }
 
-    public static void removeEnchant(ItemStack stack, Player pa, NamespacedKey enchantment, int level) {
+    public static void removeEnchant(ItemStack stack, Player pa, Enchantment enchantment, int level) {
         stack.setAmount(stack.getAmount() - 1);
         ItemStack book = new ItemStack(Material.ENCHANTED_BOOK, 1);
-        pa.getInventory().getItemInMainHand().removeEnchantment(Objects.requireNonNull(Enchantment.getByKey(enchantment)));
+        pa.getInventory().getItemInMainHand().removeEnchantment(enchantment);
         EnchantmentStorageMeta meta = (EnchantmentStorageMeta) book.getItemMeta();
         assert meta != null;
-        meta.addStoredEnchant(Objects.requireNonNull(Enchantment.getByKey(enchantment)), level, true);
+        meta.addStoredEnchant(Objects.requireNonNull(enchantment), level, true);
         book.setItemMeta(meta);
-        pa.getWorld().dropItem(pa.getLocation(), new ItemStack(book));
+        pa.getInventory().addItem(book);
+        //pa.getWorld().dropItem(pa.getLocation(), new ItemStack(book));
     }
 
-    public void requireMoneyCheck(ItemStack stack, Player pa, NamespacedKey enchantment, int level){
+    public void requireMoneyCheck(Player pa){
         Economy econ = UnenchanterRedux.getEconomy();
         EconomyResponse r = econ.withdrawPlayer(pa, configMoneyCost);
         Double balance = r.balance;
@@ -159,7 +165,7 @@ public class UnenchantController implements CommandExecutor {
                 ChatColor.GOLD + "$" + df.format(balance) + ChatColor.GREEN + ".");
     }
 
-    public void requireLevelCheck(ItemStack stack, Player pa, NamespacedKey enchantment, int level){
+    public void requireLevelCheck(Player pa){
         int playerLevel = pa.getLevel();
         pa.setLevel(playerLevel - configExpCost);
         pa.sendMessage(ChatColor.GREEN + "Took " + ChatColor.GOLD + configExpCost + ChatColor.GREEN + " levels from you.");

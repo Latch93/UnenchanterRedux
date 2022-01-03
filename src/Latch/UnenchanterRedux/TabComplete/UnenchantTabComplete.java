@@ -19,13 +19,12 @@ public class UnenchantTabComplete implements TabCompleter {
         strings.clear();
         Player pa = (Player) commandSender;
         Map<Enchantment, Integer> itemInHand = pa.getInventory().getItemInMainHand().getEnchantments();
-        String enchantment;
         int level;
         for (Map.Entry<Enchantment, Integer> entry : itemInHand.entrySet()) {
-            enchantment = entry.getKey().getKey().getKey();
-            enchantment = enchantment.substring(0, 1).toUpperCase() + enchantment.substring(1);
+            String[] temp1 = entry.toString().split(":");
+            String[] temp2 = temp1[1].split(",");
             level = entry.getValue();
-            strings.add(enchantment + ":" + level);
+            strings.add(temp2[0] + ":" + level);
         }
         try {
             return (args.length > 0) ? StringUtil.copyPartialMatches(args[0], strings, new ArrayList<>()) : null;

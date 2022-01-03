@@ -40,7 +40,9 @@ public class UnenchanterRedux extends JavaPlugin {
         for(Enchantment enchantment : Enchantment.values()) {
             int maxLevel = enchantment.getMaxLevel();
             for (int i = 0; i < maxLevel; i++){
-                um.add(new UnenchantModel(enchantment.getKey().getKey() + "---" + (i + 1), 0, 0, false, false, true ));
+                String[] temp1 = enchantment.toString().split(":");
+                String[] temp2 = temp1[1].split(",");
+                um.add(new UnenchantModel(temp2[0] + "---" + (i + 1), 0, 0, false, false, true ));
             }
         }
     }

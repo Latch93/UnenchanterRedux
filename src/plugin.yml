@@ -1,8 +1,8 @@
 name: UnenchanterRedux
-version: 0.0.4
+version: 0.0.5
 author: Latch
 main: Latch.UnenchanterRedux.UnenchanterRedux
-api-version: 1.16
+api-version: 1.17
 softdepend: [Vault]
 commands:
   unenchant:
