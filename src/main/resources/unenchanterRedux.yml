@@ -1,0 +1,661 @@
+enchants:
+  aqua_affinity---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  bane_of_arthropods---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  bane_of_arthropods---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  bane_of_arthropods---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  bane_of_arthropods---4:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  bane_of_arthropods---5:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  binding_curse---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  blast_protection---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  blast_protection---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  blast_protection---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  blast_protection---4:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  channeling---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  depth_strider---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  depth_strider---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  depth_strider---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  efficiency---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  efficiency---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  efficiency---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  efficiency---4:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  efficiency---5:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  feather_falling---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  feather_falling---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  feather_falling---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  feather_falling---4:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  fire_aspect---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  fire_aspect---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  fire_protection---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  fire_protection---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  fire_protection---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  fire_protection---4:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  flame---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  fortune---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  fortune---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  fortune---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  frost_walker---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  frost_walker---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  impaling---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  impaling---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  impaling---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  impaling---4:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  impaling---5:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  infinity---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  knockback---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  knockback---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  looting---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  looting---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  looting---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  loyalty---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  loyalty---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  loyalty---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  luck_of_the_sea---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  luck_of_the_sea---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  luck_of_the_sea---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  lure---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  lure---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  lure---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  mending---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  multishot---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  piercing---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  piercing---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  piercing---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  piercing---4:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  power---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  power---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  power---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  power---4:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  power---5:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  projectile_protection---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  projectile_protection---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  projectile_protection---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  projectile_protection---4:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  protection---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  protection---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  protection---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  protection---4:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  punch---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  punch---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  quick_charge---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  quick_charge---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  quick_charge---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  respiration---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  respiration---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  respiration---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  riptide---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  riptide---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  riptide---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  sharpness---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  sharpness---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  sharpness---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  sharpness---4:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  sharpness---5:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  silk_touch---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  smite---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  smite---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  smite---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  smite---4:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  smite---5:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  soul_speed---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  soul_speed---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  soul_speed---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  sweeping---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  sweeping---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  sweeping---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  thorns---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  thorns---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  thorns---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  unbreaking---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  unbreaking---2:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  unbreaking---3:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
+  vanishing_curse---1:
+    levelCost: 0
+    doesCostLevel: false
+    moneyCost: 0
+    doesCostMoney: false
+    isUnenchantAllowed: true
