@@ -5,8 +5,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.latch93</groupId>
-    <artifactId>UnenchanterRedux</artifactId>
-    <version>0.0.5</version>
+    <artifactId>LatchsUnenchanter</artifactId>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -29,11 +29,11 @@
                     <relocations>
                         <relocation>
                             <pattern>co.aikar.commands</pattern>
-                            <shadedPattern>Latch.UnenchanterRedux.acf.commands</shadedPattern>
+                            <shadedPattern>Latch.Unenchanter.acf.commands</shadedPattern>
                         </relocation>
                         <relocation>
                             <pattern>co.aikar.locales</pattern>
-                            <shadedPattern>Latch.UnenchanterRedux.acf.locales</shadedPattern>
+                            <shadedPattern>Latch.Unenchanter.acf.locales</shadedPattern>
                         </relocation>
                     </relocations>
                     <filters>
