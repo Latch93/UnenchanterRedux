@@ -1,8 +1,8 @@
-name: UnenchanterRedux
+name: "LatchsUnenchanter"
 version: ${project.version}
 authors: [Latch,mfnalex]
-main: Latch.UnenchanterRedux.UnenchanterRedux
-api-version: 1.17
+main: Latch.Unenchanter.Unenchanter
+api-version: 1.19
 softdepend: [Vault, PlaceholderAPI]
 commands:
   unenchant:

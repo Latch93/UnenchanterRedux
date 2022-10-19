@@ -1,7 +1,7 @@
-package Latch.UnenchanterRedux.Controllers;
+package Latch.Unenchanter.Controllers;
 
-import Latch.UnenchanterRedux.ConfigManagers.UnenchantConfigManager;
-import Latch.UnenchanterRedux.UnenchanterRedux;
+import Latch.Unenchanter.Constants;
+import Latch.Unenchanter.Unenchanter;
 
 import net.milkbowl.vault.economy.Economy;
 import net.milkbowl.vault.economy.EconomyResponse;
@@ -26,6 +26,8 @@ import java.util.Arrays;
 import java.util.Map;
 import java.util.Objects;
 
+import static Latch.Unenchanter.Unenchanter.log;
+
 public class UnenchantController implements CommandExecutor {
 
     private static int configExpCost;
@@ -38,32 +40,31 @@ public class UnenchantController implements CommandExecutor {
     private static final DecimalFormat df = new DecimalFormat("0.00");
     private static boolean doesPlayerHaveEnoughLevels;
     private static boolean doesPlayerHaveEnoughMoney;
-    private UnenchanterRedux plugin = UnenchanterRedux.getPlugin(UnenchanterRedux.class);
+    private final Unenchanter plugin = Unenchanter.getPlugin(Unenchanter.class);
 
     @Override
     public boolean onCommand(CommandSender commandSender, Command command, String s, String[] args) {
 
         if(args.length == 1 && args[0].equalsIgnoreCase("reload") && commandSender.hasPermission("ur.command.reload")){
-            UnenchanterRedux.getInstance().reload();
-            commandSender.sendMessage(ChatColor.GREEN + "UnenchantRedux has been reloaded.");
+            Unenchanter.getInstance().reload();
+            commandSender.sendMessage(ChatColor.GREEN + Constants.PLUGIN_NAME + " has been reloaded.");
             return true;
         }
 
         if(args.length == 1 && args[0].equalsIgnoreCase("debug") && commandSender.isOp()) {
             Arrays.stream(Enchantment.values()).forEach(ench -> {
-                System.out.println(ench.getKey());
+                log.info(ChatColor.YELLOW + "Enchantment: " + ench.getKey());
             });
             return true;
         }
 
         Player pa = (Player) commandSender;
-        NamespacedKey enchantment;
         int level;
         int count = 0;
-        File configFile = new File(plugin.getDataFolder(), "unenchanterRedux.yml");
-        FileConfiguration UnenchantCfg = YamlConfiguration.loadConfiguration(configFile);
+        File configFile = new File(plugin.getDataFolder(), Constants.CONFIG_FILE_NAME + ".yml");
+        FileConfiguration unenchantCfg = YamlConfiguration.loadConfiguration(configFile);
         if (args.length == 0){
-            pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "You need to select the enchantment on an item to unenchant.");
+            pa.sendMessage(ChatColor.RED + Constants.YML_ENCHANT_ERROR_MESSAGE_STRING + ChatColor.GRAY + "You need to select the enchantment on an item to unenchant.");
         }
         else if (args.length == 1) {
             for (ItemStack stack : pa.getInventory().getContents()) {
@@ -79,21 +80,19 @@ public class UnenchantController implements CommandExecutor {
                                 level = entry.getValue();
                                 String selection = args[0];
                                 String[] selectionArr = selection.split(":");
-                                if (selectionArr[0].equalsIgnoreCase(enc.toString())){
-                                    int configCounter = 1;
+                                if (selectionArr[0].equalsIgnoreCase(enc)){
                                     doesContainEnchant = true;
-                                    for(String enchantFromConfig : UnenchantCfg.getConfigurationSection("enchants").getKeys(false)) {
+                                    for(String enchantFromConfig : unenchantCfg.getConfigurationSection("enchants").getKeys(false)) {
                                         String[] placeholder = enchantFromConfig.split("---");
                                         String configEnchantName = placeholder[0];
                                         int configEnchantLevel = Integer.parseInt(placeholder[1]);
                                         if (configEnchantName.equalsIgnoreCase(enc) && configEnchantLevel == level){
-                                            configExpCost = UnenchantCfg.getInt("enchants." + enchantFromConfig + ".levelCost");
-                                            configMoneyCost = UnenchantCfg.getInt("enchants." + enchantFromConfig + ".moneyCost");
-                                            configDoesCostExp = UnenchantCfg.getBoolean("enchants." + enchantFromConfig + ".doesCostLevel");
-                                            configDoesCostMoney = UnenchantCfg.getBoolean("enchants." + enchantFromConfig + ".doesCostMoney");
-                                            isUnenchantAllowed = UnenchantCfg.getBoolean("enchants." + enchantFromConfig + ".isUnenchantAllowed");
+                                            configExpCost = unenchantCfg.getInt(Constants.YML_ENCHANTS_KEY + enchantFromConfig + ".levelCost");
+                                            configMoneyCost = unenchantCfg.getInt(Constants.YML_ENCHANTS_KEY + enchantFromConfig + ".moneyCost");
+                                            configDoesCostExp = unenchantCfg.getBoolean(Constants.YML_ENCHANTS_KEY + enchantFromConfig + ".doesCostLevel");
+                                            configDoesCostMoney = unenchantCfg.getBoolean(Constants.YML_ENCHANTS_KEY + enchantFromConfig + ".doesCostMoney");
+                                            isUnenchantAllowed = unenchantCfg.getBoolean(Constants.YML_ENCHANTS_KEY + enchantFromConfig + ".isUnenchantAllowed");
                                         }
-                                        configCounter++;
                                     }
                                     doesHaveEnoughMoney(pa, configMoneyCost);
                                     doesHaveEnoughLevels(pa, configExpCost);
@@ -108,7 +107,7 @@ public class UnenchantController implements CommandExecutor {
                                                 removeEnchant(stack, pa, entry.getKey(), level);
                                             }
                                             else {
-                                                pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "You do not have enough levels to unenchant. Levels required: " + ChatColor.GOLD + configExpCost);
+                                                pa.sendMessage(ChatColor.RED + Constants.YML_ENCHANT_ERROR_MESSAGE_STRING + ChatColor.GRAY + "You do not have enough levels to unenchant. Levels required: " + ChatColor.GOLD + configExpCost);
                                             }
                                         }
                                         if (Boolean.TRUE.equals(configDoesCostMoney) && Boolean.FALSE.equals(configDoesCostExp)){
@@ -117,15 +116,15 @@ public class UnenchantController implements CommandExecutor {
                                                 removeEnchant(stack, pa, entry.getKey(), level);
                                             }
                                             else {
-                                                pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "You do not have enough money to unenchant. Cost required: " + ChatColor.GOLD + "$" + configMoneyCost);
+                                                pa.sendMessage(ChatColor.RED + Constants.YML_ENCHANT_ERROR_MESSAGE_STRING + ChatColor.GRAY + "You do not have enough money to unenchant. Cost required: " + ChatColor.GOLD + "$" + configMoneyCost);
                                             }
                                         }
                                         if (Boolean.TRUE.equals(configDoesCostMoney) && Boolean.TRUE.equals(configDoesCostExp)){
                                             if (Boolean.FALSE.equals(doesPlayerHaveEnoughMoney)){
-                                                pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "You do not have enough money to unenchant. Cost required: " + ChatColor.GOLD + "$" + configMoneyCost);
+                                                pa.sendMessage(ChatColor.RED + Constants.YML_ENCHANT_ERROR_MESSAGE_STRING + ChatColor.GRAY + "You do not have enough money to unenchant. Cost required: " + ChatColor.GOLD + "$" + configMoneyCost);
                                             }
                                             if (Boolean.FALSE.equals(doesPlayerHaveEnoughLevels)){
-                                                pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "You have enough levels to unenchant this item. Levels required: " + ChatColor.GOLD + configExpCost);
+                                                pa.sendMessage(ChatColor.RED + Constants.YML_ENCHANT_ERROR_MESSAGE_STRING + ChatColor.GRAY + "You have enough levels to unenchant this item. Levels required: " + ChatColor.GOLD + configExpCost);
                                             }
                                             if (Boolean.TRUE.equals(doesPlayerHaveEnoughMoney) && Boolean.TRUE.equals(doesPlayerHaveEnoughLevels)) {
                                                 requireMoneyCheck(pa);
@@ -135,25 +134,26 @@ public class UnenchantController implements CommandExecutor {
                                         }
                                     }
                                     else {
-                                        pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "This enchantment is not allowed to be unenchanted.");
+                                        pa.sendMessage(ChatColor.RED + Constants.YML_ENCHANT_ERROR_MESSAGE_STRING + ChatColor.GRAY + "This enchantment is not allowed to be unenchanted.");
                                     }
                                 }
                             }
                         }
-                    } catch (NullPointerException ignore) {
+                    } catch (NullPointerException e) {
+                        log.info(ChatColor.RED +e.getMessage());
                     }
                 }
             }
         }
         else {
-            pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "Too many arguments entered.");
+            pa.sendMessage(ChatColor.RED + Constants.YML_ENCHANT_ERROR_MESSAGE_STRING + ChatColor.GRAY + "Too many arguments entered.");
             pa.sendMessage(ChatColor.GRAY + "Enter command like this -> /unenchant [enchantment]");
         }
         if (!Boolean.TRUE.equals(doesHaveBook)) {
-            pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "You need at least one book to unenchant.");
+            pa.sendMessage(ChatColor.RED + Constants.YML_ENCHANT_ERROR_MESSAGE_STRING + ChatColor.GRAY + "You need at least one book to unenchant.");
         }
         if (Boolean.TRUE.equals(doesHaveBook) && !Boolean.TRUE.equals(doesContainEnchant)){
-            pa.sendMessage(ChatColor.RED + "Error: " + ChatColor.GRAY + "Item does not have that enchantment.");
+            pa.sendMessage(ChatColor.RED + Constants.YML_ENCHANT_ERROR_MESSAGE_STRING + ChatColor.GRAY + "Item does not have that enchantment.");
         }
         return true;
     }
@@ -171,7 +171,7 @@ public class UnenchantController implements CommandExecutor {
     }
 
     public void requireMoneyCheck(Player pa){
-        Economy econ = UnenchanterRedux.getEconomy();
+        Economy econ = Unenchanter.getEconomy();
         EconomyResponse r = econ.withdrawPlayer(pa, configMoneyCost);
         Double balance = r.balance;
         df.format(balance);
@@ -192,7 +192,7 @@ public class UnenchantController implements CommandExecutor {
     }
 
     public void doesHaveEnoughMoney(Player pa, int cost){
-        Economy econ = UnenchanterRedux.getEconomy();
+        Economy econ = Unenchanter.getEconomy();
         double playerBalance = econ.getBalance(pa);
         doesPlayerHaveEnoughMoney = playerBalance >= cost;
     }

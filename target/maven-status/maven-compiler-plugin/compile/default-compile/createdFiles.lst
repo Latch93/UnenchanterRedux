@@ -1,0 +1,7 @@
+Latch\Unenchanter\Controllers\UnenchantController.class
+Latch\Unenchanter\ConfigManagers\UnenchantConfigManager.class
+Latch\Unenchanter\Placeholders.class
+Latch\Unenchanter\Constants.class
+Latch\Unenchanter\Models\UnenchantModel.class
+Latch\Unenchanter\Unenchanter.class
+Latch\Unenchanter\TabComplete\UnenchantTabComplete.class

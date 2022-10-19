@@ -1,4 +1,4 @@
-package Latch.UnenchanterRedux.TabComplete;
+package Latch.Unenchanter.TabComplete;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;

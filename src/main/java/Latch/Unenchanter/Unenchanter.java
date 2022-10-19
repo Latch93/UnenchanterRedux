@@ -1,11 +1,12 @@
-package Latch.UnenchanterRedux;
+package Latch.Unenchanter;
 
-import Latch.UnenchanterRedux.ConfigManagers.UnenchantConfigManager;
-import Latch.UnenchanterRedux.Controllers.UnenchantController;
-import Latch.UnenchanterRedux.Models.UnenchantModel;
-import Latch.UnenchanterRedux.TabComplete.UnenchantTabComplete;
+import Latch.Unenchanter.ConfigManagers.UnenchantConfigManager;
+import Latch.Unenchanter.Controllers.UnenchantController;
+import Latch.Unenchanter.Models.UnenchantModel;
+import Latch.Unenchanter.TabComplete.UnenchantTabComplete;
 import net.milkbowl.vault.economy.Economy;
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.NamespacedKey;
 import org.bukkit.configuration.file.YamlConfiguration;
 import org.bukkit.enchantments.Enchantment;
@@ -18,13 +19,13 @@ import java.util.List;
 import java.util.Objects;
 import java.util.logging.Logger;
 
-public class UnenchanterRedux extends JavaPlugin {
+public class Unenchanter extends JavaPlugin {
 
-    public static List<UnenchantModel> um = new ArrayList<>();
-    private UnenchantConfigManager UnenchantCfgm;
+    private static List<UnenchantModel> um = new ArrayList<>();
+    private UnenchantConfigManager unenchantCfgm;
     private static Economy econ = null;
-    private static final Logger log = Logger.getLogger("Minecraft");
-    private static UnenchanterRedux instance;
+    public static final Logger log = Logger.getLogger("Minecraft");
+    private static Unenchanter instance;
     private final File nameFile = new File(getDataFolder(),"enchantmentNames.yml");
     private YamlConfiguration nameYml;
 
@@ -36,7 +37,11 @@ public class UnenchanterRedux extends JavaPlugin {
         instance = this;
     }
 
-    public static UnenchanterRedux getInstance() {
+    public static List<UnenchantModel> getUM(){
+        return um;
+    }
+
+    public static Unenchanter getInstance() {
         return instance;
     }
 
@@ -44,7 +49,7 @@ public class UnenchanterRedux extends JavaPlugin {
         um = new ArrayList<>();
         createEnchantmentConfigModel();
         loadUnenchantConfigManager();
-        UnenchantCfgm.createUnenchantConfig(um);
+        unenchantCfgm.createUnenchantConfig(um);
         nameYml = YamlConfiguration.loadConfiguration(nameFile);
     }
 
@@ -59,6 +64,7 @@ public class UnenchanterRedux extends JavaPlugin {
         Objects.requireNonNull(this.getCommand("unenchant")).setExecutor(new UnenchantController());
         Objects.requireNonNull(this.getCommand("unenchant")).setTabCompleter(new UnenchantTabComplete());
         setupPlaceholders();
+        log.info(ChatColor.GREEN + "[" + getDescription().getName() + "] Enabled Version " + getDescription().getVersion());
     }
 
     private void setupPlaceholders() {
@@ -74,7 +80,7 @@ public class UnenchanterRedux extends JavaPlugin {
 
     @Override
     public void onDisable(){
-        log.info(String.format("[%s] Disabled Version %s", getDescription().getName(), getDescription().getVersion()));
+        log.info(ChatColor.RED + "[" + getDescription().getName() + "] Disabled Version " + getDescription().getVersion());
     }
 
     public static void createEnchantmentConfigModel(){
@@ -89,8 +95,8 @@ public class UnenchanterRedux extends JavaPlugin {
     }
 
     public void loadUnenchantConfigManager(){
-        UnenchantCfgm = new UnenchantConfigManager();
-        UnenchantCfgm.setup();
+        unenchantCfgm = new UnenchantConfigManager();
+        unenchantCfgm.setup();
     }
 
     public void setupEconomy() {

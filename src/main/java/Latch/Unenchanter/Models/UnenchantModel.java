@@ -1,4 +1,4 @@
-package Latch.UnenchanterRedux.Models;
+package Latch.Unenchanter.Models;
 
 public class UnenchantModel {
 
